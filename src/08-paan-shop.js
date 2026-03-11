@@ -47,16 +47,78 @@
  */
 export function createPaanOrder(basePaan, customizations) {
   // Your code here
+
+  if (
+    typeof basePaan !== "object" ||
+    basePaan === null ||
+    Object.getPrototypeOf(basePaan) !== Object.prototype
+  ) {
+    return {};
+  }
+
+  if (
+    typeof customizations !== "object" ||
+    Object.getPrototypeOf(customizations) !== Object.prototype
+  ) {
+    return Object.assign({}, basePaan);
+  }
+
+  return Object.assign({}, basePaan, customizations);
 }
 
 export function freezeMenu(menu) {
   // Your code here
+  if (
+    typeof menu !== "object" ||
+    menu === null ||
+    Object.getPrototypeOf(menu) !== Object.prototype
+  ) {
+    return {};
+  }
+
+  return Object.freeze(menu);
 }
 
 export function updatePrices(menu, increase) {
   // Your code here
+  if (
+    typeof menu !== "object" ||
+    menu === null ||
+    Object.getPrototypeOf(menu) !== Object.prototype
+  ) {
+    return {};
+  }
+
+  if (typeof increase !== "number") {
+    return {};
+  }
+
+  const entries = new Map();
+
+  for (const [key, value] of Object.entries(menu)) {
+    entries.set(key, value + increase);
+  }
+
+  return Object.fromEntries(entries);
 }
 
 export function mergeDailySpecials(regularMenu, specialsMenu) {
   // Your code here
+  if (
+    typeof regularMenu !== "object" ||
+    regularMenu === null ||
+    Object.getPrototypeOf(regularMenu) !== Object.prototype
+  ) {
+    regularMenu = {};
+  }
+
+  if (
+    typeof specialsMenu !== "object" ||
+    specialsMenu === null ||
+    Object.getPrototypeOf(specialsMenu) !== Object.prototype
+  ) {
+    specialsMenu = {};
+  }
+
+  return { ...regularMenu, ...specialsMenu };
 }
